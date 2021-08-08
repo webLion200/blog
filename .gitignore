@@ -1,0 +1,14 @@
+# NPM & Yarn
+node_modules
+package-lock.json
+yarn.json
+
+# Compiler & Destory
+build
+lib
+dist
+.cache
+.history
+
+*.log
+custom.json
