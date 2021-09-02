@@ -23,7 +23,7 @@ module.exports = appInfo => {
       enable: false,
       ignoreJSON: true,
     },
-    domainWhiteList: [ '127.0.0.1, localhost' ], // 配置白名单
+    domainWhiteList: [ '127.0.0.1', 'localhost' ], // 配置白名单
   };
 
   config.cors = {
@@ -31,6 +31,26 @@ module.exports = appInfo => {
     credentials: true, // 允许 Cookie 跨域
     allowMethods: 'GET,POST',
   };
+
+  config.mysql = {
+    // 单数据库信息配置
+    client: {
+      // host
+      host: '127.0.0.1',
+      // 端口号
+      port: '3306',
+      // 用户名
+      user: 'root',
+      // 密码
+      password: '123456',
+      // 数据库名
+      database: 'weblion_blog',
+    },
+    // 是否加载到 app 上，默认开启
+    app: true,
+    // 是否加载到 agent 上，默认关闭
+    agent: false,
+  }
 
   // add your user config here
   const userConfig = {

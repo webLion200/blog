@@ -1,7 +1,6 @@
 import {FC, useReducer} from "react";
 import { Form, Input, Button, message } from 'antd';
 import { useRequest } from 'ahooks';
-import { telRegx } from "../../utils/index";
 import { Post } from "../../utils/request";
 import './index.css'
 type UserInfoProps = {}
@@ -14,29 +13,26 @@ const reducer = (state: UserInfoType, action: { type: string; payload: any; }) =
   switch(action.type) {
     case 'userName':
       return {...state, userName: action.payload};
-    case 'telPhone':
-      return {...state, telPhone: action.payload};
     case 'password':
       return {...state, password: action.payload};
     default: 
       return state;
   }
 }
-const Register: FC<UserInfoProps> = (props) => {
+const Login: FC<UserInfoProps> = (props) => {
   const [state, dispatch] = useReducer(reducer, initState)
 
   const submit = async () => {
-    const { userName, telPhone, password } = state
-    const {err} = await Post('/register', {
+    const { userName, password } = state
+    const {res, err} = await Post('/login', {
       userName, 
-      telPhone, 
       password 
     })
     if(!!err) {
       message.error(err.message)
       return
     }
-    window.location.href = "/"
+    window.location.href = "/register"
   }
 
   const { run } = useRequest(submit, {
@@ -78,26 +74,6 @@ const Register: FC<UserInfoProps> = (props) => {
           </Form.Item>
 
           <Form.Item
-            label="手机号"
-            name="telPhone"
-            rules={[
-              { 
-                required: true,
-                validator: (_, value) => {
-                  if(!value) {
-                    return Promise.reject(new Error("请输入手机号"));
-                  } else if(!telRegx.test(value)) {
-                    return Promise.reject(new Error("请输入正确的手机号"));
-                  }
-                  return Promise.resolve()
-                }    
-              }
-            ]}
-          >
-            <Input name="telPhone" type="number" onChange={handleChangeInput}/>
-          </Form.Item>
-
-          <Form.Item
             label="密码"
             name="password"
             rules={[
@@ -119,7 +95,7 @@ const Register: FC<UserInfoProps> = (props) => {
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">
-              提交
+              Submit
             </Button>
           </Form.Item>
         </Form>
@@ -128,4 +104,4 @@ const Register: FC<UserInfoProps> = (props) => {
   )
 }
 
-export default Register
+export default Login

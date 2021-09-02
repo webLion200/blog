@@ -11,4 +11,6 @@ module.exports = app => {
   router.get('/getId/:id', controller.user.getId)
   router.post('/add', controller.user.add);
   router.get('/getUserInfo', controller.user.getUserInfo)
+  router.post('/register', controller.user.register)
+  router.post('/login', controller.user.login)
 };

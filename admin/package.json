@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/react-router-config": "^5.0.3",
     "@types/react-router-dom": "^5.1.8",
+    "ahooks": "^2.10.9",
     "antd": "^4.16.12",
     "axios": "^0.21.1",
     "react": "^17.0.2",
