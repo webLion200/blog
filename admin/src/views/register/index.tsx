@@ -1,6 +1,7 @@
 import {FC, useReducer} from "react";
 import { Form, Input, Button, message } from 'antd';
 import { useRequest } from 'ahooks';
+import { useHistory } from "react-router-dom";
 import { telRegx } from "../../utils/index";
 import { Post } from "../../utils/request";
 import './index.css'
@@ -23,8 +24,9 @@ const reducer = (state: UserInfoType, action: { type: string; payload: any; }) =
   }
 }
 const Register: FC<UserInfoProps> = (props) => {
-  const [state, dispatch] = useReducer(reducer, initState)
+  const history = useHistory()
 
+  const [state, dispatch] = useReducer(reducer, initState)
   const submit = async () => {
     const { userName, telPhone, password } = state
     const {err} = await Post('/register', {
@@ -36,7 +38,7 @@ const Register: FC<UserInfoProps> = (props) => {
       message.error(err.message)
       return
     }
-    window.location.href = "/"
+    history.push("/login")
   }
 
   const { run } = useRequest(submit, {

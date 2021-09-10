@@ -3,7 +3,7 @@
  *
  */
 
-import { message } from 'antd';
+// import { message } from 'antd';
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 const TIMEOUT = 10; // 超时时间,单位 s

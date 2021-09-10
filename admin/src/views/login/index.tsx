@@ -1,9 +1,12 @@
 import {FC, useReducer} from "react";
 import { Form, Input, Button, message } from 'antd';
-import { useRequest } from 'ahooks';
+import { useRequest, useMount } from 'ahooks';
+import { useHistory } from "react-router-dom";
 import { Post } from "../../utils/request";
 import './index.css'
-type UserInfoProps = {}
+type UserInfoProps = {
+  isLogin?: boolean
+}
 const initState = {
   userName: '',
   telPhone: '',
@@ -20,11 +23,18 @@ const reducer = (state: UserInfoType, action: { type: string; payload: any; }) =
   }
 }
 const Login: FC<UserInfoProps> = (props) => {
+  let history = useHistory()
+  useMount(() => {
+    if(props.isLogin) {
+      history.push('/');
+    }
+  })
+
   const [state, dispatch] = useReducer(reducer, initState)
 
   const submit = async () => {
     const { userName, password } = state
-    const {res, err} = await Post('/login', {
+    const {err} = await Post('/login', {
       userName, 
       password 
     })
@@ -32,7 +42,7 @@ const Login: FC<UserInfoProps> = (props) => {
       message.error(err.message)
       return
     }
-    window.location.href = "/register"
+    history.push("/")
   }
 
   const { run } = useRequest(submit, {
