@@ -1,0 +1,9 @@
+.blog-content-wrap .input-title {
+  font-size: 26px;
+  color: #666;
+  border: none;
+  padding: 20px 30px;
+}
+.blog-content-wrap .markdown-wrap {
+  padding: 10px;
+}

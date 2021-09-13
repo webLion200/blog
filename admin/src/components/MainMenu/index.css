@@ -1,0 +1,34 @@
+.back-btn-wrap {
+  height: 80px;
+}
+.back-btn {
+  background: #404040;
+  color: #EC724F;
+  border: 1px solid #EC724F;
+  width: 200px;
+  height: 40px;
+  border-radius: 40px;
+  text-align: center;
+}
+
+.main-menu-wrap .add-key {
+  color: #fff;
+  padding: 10px;
+}
+.main-menu-wrap .add-key:hover {
+  cursor: pointer;
+}
+.main-menu-wrap .ant-menu-item-selected {
+  color: #fff;
+  background: #666 !important;
+  border-left: 4px solid #EC724F;
+}
+.main-menu-wrap .ant-menu-item-active, .main-menu-wrap .ant-menu-item-active:hover {
+  background: #666;
+  color: #fff !important;
+}
+.main-menu-wrap .menu-item-cont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

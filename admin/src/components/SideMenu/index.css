@@ -1,0 +1,12 @@
+.side-menu-wrap {
+  
+}
+.side-menu-wrap .add-note {
+  padding: 20px;
+  cursor: pointer;
+}
+.side-menu-wrap .menu-item-cont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -16,8 +16,8 @@ const BasicLayout:FC<BasicLayoutProps> = (props) => {
 
   const renderNoteBooks = () => {
     return (
-      <Layout>
-        <Sider style={{ background: '#fff' }}>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Sider width="250px" style={{ background: '#fff' }}>
           <SideMenu />
         </Sider>
         <Content>
@@ -29,7 +29,7 @@ const BasicLayout:FC<BasicLayoutProps> = (props) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider style={{ background: '#404040' }}>
+      <Sider width="250px" style={{ background: '#404040' }}>
         <MainMenu />
       </Sider>
       <Content>

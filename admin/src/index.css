@@ -2,3 +2,27 @@
   width: 100%;
   height: 100%;
 }
+
+.ant-popover-inner-content {
+  padding: 0;
+}
+
+/* 通用css */
+.flex-center-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pop-cont-item {
+  padding: 10px 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+.pop-cont-item:hover {
+  cursor: pointer;
+}
+
+.pop-cont-item:last-child {
+  border-bottom: none;
+}
