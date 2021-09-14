@@ -26,9 +26,7 @@ const BlogContent:FC = () => {
       breaks: false,
       smartLists: true,
     });
-    console.log(content, 'content')
     const _html = marked(content);
-    console.log(_html, '_html')
     setHtml(_html)
   })
   const changeContent = (e: any) => {

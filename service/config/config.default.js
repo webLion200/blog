@@ -52,6 +52,10 @@ module.exports = appInfo => {
     agent: false,
   }
 
+  exports.jwt = {
+    secret: "webLion_Blog_123"
+  };
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

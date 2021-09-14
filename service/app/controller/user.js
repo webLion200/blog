@@ -13,26 +13,6 @@ class UserController extends Controller {
     ctx.body = id
   }
 
-  async add() {
-    const { ctx } = this
-    const { title, content } = ctx.request.body
-
-    ctx.body = {
-      title,
-      content
-    }
-  }
-
-  async getUserInfo() {
-    const { ctx } = this
-    const { title, content } = await ctx.service.user.user()
-
-    ctx.body = {
-      title,
-      content
-    }
-  }
-
   async register() {
     const {ctx, app} = this
     const results = await ctx.service.user.register()
@@ -40,10 +20,17 @@ class UserController extends Controller {
   }
 
   async login() {
-    const { ctx } = this
+    const { ctx, app } = this
+    const { jwt, config } = app
 
     const results = await ctx.service.user.login()
-    this.ctx.body = results
+
+    const token = jwt.sign({ user_id: results.data.user_id }, config.jwt.secret);
+
+    this.ctx.body = {
+      data: token,
+      status: 200
+    }
   }
 }
 

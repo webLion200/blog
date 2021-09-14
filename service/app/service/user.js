@@ -19,7 +19,11 @@ class UserService extends Service {
     }
 
     // let sql = `INSERT INTO users(userName, telPhone, password) VALUES(${userName}, ${telPhone}, ${password})`
-    const results = await this.app.mysql.insert('users', {userName, telPhone, password})
+    const results = await this.app.mysql.insert('users', {
+      user_name: userName, 
+      tel_phone: telPhone, 
+      password
+    })
     return {
       data: results,
       status: 200
@@ -29,7 +33,10 @@ class UserService extends Service {
   async login() {
     const { ctx, app } = this
     const {userName, password} = ctx.request.body
-    const results = await app.mysql.get('users', {userName, password})
+    const results = await app.mysql.get('users', {
+      user_name: userName, 
+      password
+    })
     if(!results) {
       return {
         message: '登录名或密码错误',

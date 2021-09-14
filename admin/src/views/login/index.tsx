@@ -1,8 +1,9 @@
 import {FC, useReducer} from "react";
 import { Form, Input, Button, message } from 'antd';
-import { useRequest, useMount } from 'ahooks';
+import { useRequest, useMount, useLocalStorageState } from 'ahooks';
 import { useHistory } from "react-router-dom";
 import { Post } from "../../utils/request";
+import { loginApi } from "../../api";
 import './index.css'
 type UserInfoProps = {
   isLogin?: boolean
@@ -31,17 +32,15 @@ const Login: FC<UserInfoProps> = (props) => {
   })
 
   const [state, dispatch] = useReducer(reducer, initState)
-
+  const [token, setToken] = useLocalStorageState('token', '')
   const submit = async () => {
     const { userName, password } = state
-    const {err} = await Post('/login', {
-      userName, 
-      password 
-    })
+    const { res, err } = await loginApi({ userName, password })
     if(!!err) {
       message.error(err.message)
       return
     }
+    setToken(res as string)
     history.push("/")
   }
 

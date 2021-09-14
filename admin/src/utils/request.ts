@@ -49,7 +49,6 @@ instance.interceptors.response.use(
   // status < 500
   (response) => {
     const { data, status } = response;
-
     if (status !== 200) {
       const err = Error(data?.message);
       // @ts-ignore
@@ -63,7 +62,6 @@ instance.interceptors.response.use(
   },
   // status >= 500
   (error: AxiosError) => {
-    debugger
     // 有返回data,但不是 200
     if (error.response) {
       const { data } = error.response;
@@ -98,7 +96,7 @@ async function request<T>(url: string, config: AxiosRequestConfig): Promise<Erro
       ...restConfig,
       withCredentials: config.withCredentials ?? !instance.defaults.headers.common['Authorization'],
     };
-
+    debugger
     const { data } = await instance.request<IResponse<T>>(params);
     return { res: data.data } as ErrorWrap<T>; 
   } catch (error) {
