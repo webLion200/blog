@@ -2,11 +2,25 @@
   
 }
 .side-menu-wrap .add-note {
-  padding: 20px;
+  padding: 15px;
   cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+.side-menu-wrap .add-note:hover {
+  background: rgb(178, 245, 241);
 }
 .side-menu-wrap .menu-item-cont {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.articles-menu .ant-menu-item {
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #ddd;
+}
+
+.articles-menu .ant-menu-item:not(:last-child) {
+  margin-bottom: 0;
 }

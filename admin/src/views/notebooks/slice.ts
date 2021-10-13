@@ -1,11 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getCatalogsApi, getArticlesApi, addCatalogApi, deleteCatalogApi, addArticleApi, deleteArticleApi } from '../../api'
+import { getCatalogsApi, getArticlesApi, addCatalogApi, deleteCatalogApi, addArticleApi, deleteArticleApi, updateArticleApi } from '../../api'
 import { AppThunk } from './store'
+
+interface IAddArticleParams {
+  articleName: string;
+  content: string;
+}
 
 const initialState = {
   cataList: [],
   articleList: [],
-  currCataInfo: {} as CatalogType
+  currCataInfo: {} as CatalogType,
+  currArticleInfo: {} as ArticleType
 }
 
 
@@ -21,7 +27,10 @@ export const notebookSlice = createSlice({
     },
     changeArticleList(state, action) {
       state.articleList = action.payload
-    }
+    },
+    changeCurrArticleInfo(state, action) {
+      state.currArticleInfo = {...state.currArticleInfo, ...action.payload}
+    },
   }
 })
 
@@ -30,8 +39,8 @@ const initCataList = (): AppThunk => async (dispatch) => {
   const res = cataRes.res as Array<CatalogType> || []
   await dispatch(actions.changeCataList(res))
   const cata_id = res[0]?.['cata_id']
-  dispatch(actions.changeCurrCataInfo(res[0]))
-  dispatch(effects.fetchArticle(cata_id))
+  await dispatch(actions.changeCurrCataInfo(res[0]))
+  await dispatch(effects.fetchArticle(cata_id))
 }
 
 const fetchCataList = (): AppThunk => async (dispatch) => {
@@ -40,12 +49,13 @@ const fetchCataList = (): AppThunk => async (dispatch) => {
 }
 
 const fetchArticle = (cata_id?: string): AppThunk => async (dispatch, getState) => {
-  const state = getState()
   if(!cata_id) return
-  const id = cata_id ?? state.notebook.cataList[0]['cata_id']
-  await getArticlesApi({
-    cata_id: id
+  const articleRes = await getArticlesApi({
+    cata_id
   })
+  const res = articleRes.res as Array<ArticleType> || []
+  dispatch(actions.changeArticleList(res))
+  dispatch(actions.changeCurrArticleInfo(res[0]))
 }
 
 const addCatalog = (cataName: string): AppThunk => async (dispatch) => {
@@ -64,13 +74,46 @@ const deleteCatalog = (): AppThunk => async (dispatch, getState) => {
   }, 1000);
 }
 
+const addArticle = ({articleName, content}: IAddArticleParams): AppThunk => async (dispatch, getState) => {
+  const state = getState()
+  const currCataInfo = state.notebook.currCataInfo
+  await addArticleApi({articleName, catalogId: currCataInfo['cata_id'], content})
+  setTimeout(() => {
+    dispatch(fetchArticle(currCataInfo['cata_id']))
+  }, 1000);
+}
+
+const deleteArticle = (): AppThunk => async (dispatch, getState) => {
+  const state = getState()
+  const currCataInfo = state.notebook.currCataInfo
+  const currArticleInfo = state.notebook.currArticleInfo
+  await deleteArticleApi(currArticleInfo['article_id'])
+  setTimeout(() => {
+    dispatch(fetchArticle(currCataInfo['cata_id']))
+  }, 1000);
+}
+
+const updateArticle = (): AppThunk => async (dispatch, getState) => {
+  const state = getState()
+  const currCataInfo = state.notebook.currCataInfo
+  const currArticleInfo = state.notebook.currArticleInfo
+  await updateArticleApi({articleName: currArticleInfo.article_name, content: currArticleInfo.content, articleId: currArticleInfo.article_id})
+
+  setTimeout(() => {
+    dispatch(fetchArticle(currCataInfo['cata_id']))
+  }, 1000);
+}
+
 
 export const effects = {
   initCataList,
   fetchCataList,
   fetchArticle,
   addCatalog,
-  deleteCatalog
+  deleteCatalog,
+  addArticle,
+  deleteArticle,
+  updateArticle
 }
 
 export const actions = notebookSlice.actions

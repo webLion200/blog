@@ -19,6 +19,12 @@ interface IAddArticleParams {
   content: string;
 }
 
+interface IUpdateArticleParams {
+  articleName: string;
+  content: string;
+  articleId: string
+}
+
 
 export const loginApi = (params: ILoginParams) => {
   return Post('/login', params)
@@ -46,6 +52,10 @@ export const addArticleApi = (params: IAddArticleParams) => {
 
 export const deleteArticleApi = (articleId: string) => {
   return Get(`/delete/notes/${articleId}`)
+}
+
+export const updateArticleApi = (params: IUpdateArticleParams) => {
+  return Post('/update/note', params)
 }
 
 

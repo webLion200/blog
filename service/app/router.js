@@ -17,4 +17,5 @@ module.exports = app => {
   router.get('/notes/getNotes', jwt, controller.notes.getNotes)
   router.post('/notes/addNote', jwt, controller.notes.addNote)
   router.get('/delete/notes/:note_id', jwt, controller.notes.delNote)
+  router.post('/update/note', jwt, controller.notes.updateNote)
 };

@@ -1,14 +1,21 @@
 import { FC, useState, useEffect  } from "react";
 import { Input, Button } from 'antd';
+import { useDispatch } from 'react-redux';
+
 import marked from "marked";
 import hljs  from "highlight.js";
 import 'highlight.js/styles/github.css';
+import { useTypedSelector } from '../../store';
+import { effects, actions } from "../../slice";
 
 import './index.css'
 
 const { TextArea } = Input;
 
 const BlogContent:FC = () => {
+  const { currArticleInfo } = useTypedSelector(state => state.notebook)
+  const dispatch = useDispatch()
+
   const [content, setContent] = useState('');
   const [isPreview, setPreviewStatus] = useState(false);
   const [_html, setHtml] = useState('');
@@ -37,10 +44,21 @@ const BlogContent:FC = () => {
     setPreviewStatus(!isPreview)
   }
 
+  const handleChangeTitle = (e: any) => {
+    const articleName = e.target.value
+    dispatch(actions.changeCurrArticleInfo({
+      article_name: articleName
+    }))
+  }
+
+  const handleSaveTitle = () => {
+    dispatch(effects.updateArticle())
+  }
+console.log(currArticleInfo, 'currArticleInfo')
   return (
     <div className="blog-content-wrap">
       <div className="title-wrap">
-        <Input className="input-title" value="2021-09-08" type="text" maxLength={20}/>
+        <Input className="input-title" value={currArticleInfo['article_name']} type="text" maxLength={20} onChange={handleChangeTitle} onBlur={handleSaveTitle}/>
         <div className="actions-btn">
           <Button type="default" onClick={handlePreview}>
             {

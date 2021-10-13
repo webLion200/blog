@@ -54,7 +54,7 @@ class NotesService extends Service {
 
     app.mysql.insert('article', {
       article_name: articleName,
-      catalog_id: catalogId,
+      cata_id: catalogId,
       content,
       user_id: userId
     })
@@ -76,11 +76,11 @@ class NotesService extends Service {
 
   async delNote() {
     const { ctx, app } = this
-    const { articleId } = ctx.params
+    const { note_id } = ctx.params
     const userId = ctx.state.user.user_id
 
     const results = await app.mysql.delete('article', {
-      article_id: articleId,
+      article_id: note_id,
       user_id: userId
     })
     const {affectedRows} = results
@@ -114,8 +114,7 @@ class NotesService extends Service {
       }
     };
 
-
-    const results = app.mysql.update('article', row, options)
+    const results = await app.mysql.update('article', row, options)
     const {affectedRows} = results
     if(affectedRows >= 1) {
       return {
@@ -124,7 +123,7 @@ class NotesService extends Service {
       }
     } else {
       return {
-        data: '删除失败',
+        data: '更新失败',
         status: 404
       }
     }
