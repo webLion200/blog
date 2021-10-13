@@ -1,11 +1,6 @@
 const Controller = require('egg').Controller
 
 class UserController extends Controller {
-  async index() {
-    const { ctx } = this
-    const { username } = ctx.query
-    ctx.body = username
-  }
 
   async getId() {
     const { ctx } = this

@@ -32,3 +32,26 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.add-catalog-wrap .ant-input {
+  background: rgb(230, 230, 230);
+}
+.add-catalog-wrap .btns {
+  display: flex;
+  margin-top: 10px;
+}
+.add-catalog-wrap .btn {
+  padding: 3px 15px;
+  margin-left: 10px;
+  font-size: 12px;
+}
+.add-catalog-wrap .submit-btn {
+  border-radius: 20px;
+  color: aquamarine;
+  border: 1px solid aquamarine;
+}
+.add-catalog-wrap .cancel-btn {
+  color: #ccc;
+  border-radius: 20px;
+  border: 1px solid #8ccc;
+}

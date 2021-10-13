@@ -1,3 +1,7 @@
 .ant-menu-vertical {
   border-right: none;
 }
+
+.btn {
+  cursor: pointer;
+}

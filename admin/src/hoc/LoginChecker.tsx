@@ -15,7 +15,7 @@ const LoginChecker:FC<LoginCheckerProps> = (props) => {
     }
   })
   
-  request.setCommonHeader({ Authorization: token })
+  request.setCommonHeader({ Authorization: 'Bearer ' + token })
   return <>{props.children}</>
 }
 

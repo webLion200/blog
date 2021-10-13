@@ -96,7 +96,6 @@ async function request<T>(url: string, config: AxiosRequestConfig): Promise<Erro
       ...restConfig,
       withCredentials: config.withCredentials ?? !instance.defaults.headers.common['Authorization'],
     };
-    debugger
     const { data } = await instance.request<IResponse<T>>(params);
     return { res: data.data } as ErrorWrap<T>; 
   } catch (error) {

@@ -11,7 +11,13 @@ class NotesController extends Controller {
 
   async getCatalogs() {
     const { ctx, app } = this;
-    const results = ctx.service.notes.getCatalogs()
+    const results = await ctx.service.notes.getCatalogs()
+    ctx.body = results;
+  }
+
+  async delCatalog() {
+    const { ctx, app } = this
+    const results = await ctx.service.notes.delCatalog()
     ctx.body = results;
   }
 
@@ -25,6 +31,18 @@ class NotesController extends Controller {
     const { ctx, app } = this;
     const results = await ctx.service.notes.getNotes()
     ctx.body = results;
+  }
+
+  async delNote() {
+    const { ctx, app } = this;
+    const results = await ctx.service.notes.delNote()
+    ctx.body = results
+  }
+
+  async updateNote() {
+    const { ctx, app } = this;
+    const results = await ctx.service.notes.updateNote()
+    ctx.body = results
   }
 }
 
