@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getCatalogsApi, getArticlesApi, addCatalogApi, deleteCatalogApi, addArticleApi, deleteArticleApi, updateArticleApi } from '../../api'
 import { AppThunk } from './store'
-
+import { message } from 'antd';
 interface IAddArticleParams {
   articleName: string;
   content: string;
@@ -11,7 +11,9 @@ const initialState = {
   cataList: [],
   articleList: [],
   currCataInfo: {} as CatalogType,
-  currArticleInfo: {} as ArticleType
+  currArticleInfo: {
+    content: ''
+  } as ArticleType
 }
 
 
@@ -98,7 +100,7 @@ const updateArticle = (): AppThunk => async (dispatch, getState) => {
   const currCataInfo = state.notebook.currCataInfo
   const currArticleInfo = state.notebook.currArticleInfo
   await updateArticleApi({articleName: currArticleInfo.article_name, content: currArticleInfo.content, articleId: currArticleInfo.article_id})
-
+  message.success('保存成功!');
   setTimeout(() => {
     dispatch(fetchArticle(currCataInfo['cata_id']))
   }, 1000);
