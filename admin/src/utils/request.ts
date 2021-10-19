@@ -1,3 +1,4 @@
+import { message } from 'antd'
 /**
  * 网络层封装
  *
@@ -49,10 +50,12 @@ instance.interceptors.response.use(
   // status < 500
   (response) => {
     const { data, status } = response;
+
     if (status !== 200) {
       const err = Error(data?.message);
       // @ts-ignore
       err.response = response;
+      message.error(data?.message)
       throw err;
     }
 
@@ -65,6 +68,7 @@ instance.interceptors.response.use(
     // 有返回data,但不是 200
     if (error.response) {
       const { data } = error.response;
+      message.error(data?.message)
       throw Error(data?.message);
     }
 

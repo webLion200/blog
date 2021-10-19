@@ -40,9 +40,9 @@ const initCataList = (): AppThunk => async (dispatch) => {
   const cataRes = await getCatalogsApi()
   const res = cataRes.res as Array<CatalogType> || []
   await dispatch(actions.changeCataList(res))
-  const cata_id = res[0]?.['cata_id']
+  const cataId = res[0]?.['cataId']
   await dispatch(actions.changeCurrCataInfo(res[0]))
-  await dispatch(effects.fetchArticle(cata_id))
+  await dispatch(effects.fetchArticle(cataId))
 }
 
 const fetchCataList = (): AppThunk => async (dispatch) => {
@@ -50,11 +50,9 @@ const fetchCataList = (): AppThunk => async (dispatch) => {
   await dispatch(actions.changeCataList(res))
 }
 
-const fetchArticle = (cata_id?: string): AppThunk => async (dispatch, getState) => {
-  if(!cata_id) return
-  const articleRes = await getArticlesApi({
-    cata_id
-  })
+const fetchArticle = (cataId?: string): AppThunk => async (dispatch, getState) => {
+  if(!cataId) return
+  const articleRes = await getArticlesApi(cataId)
   const res = articleRes.res as Array<ArticleType> || []
   dispatch(actions.changeArticleList(res))
   dispatch(actions.changeCurrArticleInfo(res[0]))
@@ -70,7 +68,7 @@ const addCatalog = (cataName: string): AppThunk => async (dispatch) => {
 const deleteCatalog = (): AppThunk => async (dispatch, getState) => {
   const state = getState()
   const currCataInfo = state.notebook.currCataInfo
-  await deleteCatalogApi(currCataInfo['cata_id'])
+  await deleteCatalogApi(currCataInfo['cataId'])
   setTimeout(() => {
     dispatch(initCataList())
   }, 1000);
@@ -79,9 +77,9 @@ const deleteCatalog = (): AppThunk => async (dispatch, getState) => {
 const addArticle = ({articleName, content}: IAddArticleParams): AppThunk => async (dispatch, getState) => {
   const state = getState()
   const currCataInfo = state.notebook.currCataInfo
-  await addArticleApi({articleName, catalogId: currCataInfo['cata_id'], content})
+  await addArticleApi({articleName, cataId: currCataInfo['cataId'], content})
   setTimeout(() => {
-    dispatch(fetchArticle(currCataInfo['cata_id']))
+    dispatch(fetchArticle(currCataInfo['cataId']))
   }, 1000);
 }
 
@@ -89,9 +87,9 @@ const deleteArticle = (): AppThunk => async (dispatch, getState) => {
   const state = getState()
   const currCataInfo = state.notebook.currCataInfo
   const currArticleInfo = state.notebook.currArticleInfo
-  await deleteArticleApi(currArticleInfo['article_id'])
+  await deleteArticleApi(currArticleInfo['articleId'])
   setTimeout(() => {
-    dispatch(fetchArticle(currCataInfo['cata_id']))
+    dispatch(fetchArticle(currCataInfo['cataId']))
   }, 1000);
 }
 
@@ -99,10 +97,10 @@ const updateArticle = (): AppThunk => async (dispatch, getState) => {
   const state = getState()
   const currCataInfo = state.notebook.currCataInfo
   const currArticleInfo = state.notebook.currArticleInfo
-  await updateArticleApi({articleName: currArticleInfo.article_name, content: currArticleInfo.content, articleId: currArticleInfo.article_id})
+  await updateArticleApi({articleName: currArticleInfo.articleName, content: currArticleInfo.content, articleId: currArticleInfo.articleId})
   message.success('保存成功!');
   setTimeout(() => {
-    dispatch(fetchArticle(currCataInfo['cata_id']))
+    dispatch(fetchArticle(currCataInfo['cataId']))
   }, 1000);
 }
 

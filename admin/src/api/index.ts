@@ -6,7 +6,7 @@ interface ILoginParams {
 }
 
 interface IGetArticlesParams {
-  cata_id: string
+  cataId: string
 }
 
 interface IAddCatalogParams {
@@ -15,7 +15,7 @@ interface IAddCatalogParams {
 
 interface IAddArticleParams {
   articleName: string;
-  catalogId: string;
+  cataId: string;
   content: string;
 }
 
@@ -31,31 +31,31 @@ export const loginApi = (params: ILoginParams) => {
 }
 
 export const getCatalogsApi = () => {
-  return Get('/notes/getCatalogs')
+  return Get('/article/getCatalogs')
 }
 
 export const addCatalogApi = (params: IAddCatalogParams) => {
-  return Post('/notes/addCatalog', params)
+  return Post('/article/addCatalog', params)
 }
 
 export const deleteCatalogApi = (cataId: string) => {
   return Get(`/delete/catalogs/${cataId}`)
 }
 
-export const getArticlesApi = (params: IGetArticlesParams) => {
-  return Get('/notes/getNotes', params)
+export const getArticlesApi = (cataId: string) => {
+  return Get(`/article/getArticles/${cataId}`)
 }
 
 export const addArticleApi = (params: IAddArticleParams) => {
-  return Post('/notes/addNote', params)
+  return Post('/article/addArticle', params)
 }
 
 export const deleteArticleApi = (articleId: string) => {
-  return Get(`/delete/notes/${articleId}`)
+  return Get(`/delete/article/${articleId}`)
 }
 
 export const updateArticleApi = (params: IUpdateArticleParams) => {
-  return Post('/update/note', params)
+  return Post('/update/article', params)
 }
 
 

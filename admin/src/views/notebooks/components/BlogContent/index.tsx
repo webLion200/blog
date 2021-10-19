@@ -50,7 +50,7 @@ const BlogContent:FC = () => {
   const handleChangeTitle = (e: any) => {
     const articleName = e.target.value
     dispatch(actions.changeCurrArticleInfo({
-      article_name: articleName
+      articleName
     }))
   }
 
@@ -62,7 +62,7 @@ const BlogContent:FC = () => {
   return (
     <div className="blog-content-wrap">
       <div className="title-wrap">
-        <Input className="input-title" value={currArticleInfo['article_name']} type="text" maxLength={20} onChange={handleChangeTitle} onBlur={handleSave}/>
+        <Input className="input-title" value={currArticleInfo['articleName']} type="text" maxLength={20} onChange={handleChangeTitle} onBlur={handleSave}/>
         <div className="actions-btn">
         <Tooltip title="保存">
           <WIcon className="mr10" type="save" color="#096dd9" size={32} style={{cursor: 'pointer'}} onClick={handleSave}/>

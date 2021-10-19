@@ -19,8 +19,8 @@ class UserController extends Controller {
     const { jwt, config } = app
 
     const results = await ctx.service.user.login()
-
-    const token = jwt.sign({ user_id: results.data.user_id }, config.jwt.secret);
+// debugger
+    const token = jwt.sign({ userId: results.data.user_id }, config.jwt.secret);
 
     this.ctx.body = {
       data: token,

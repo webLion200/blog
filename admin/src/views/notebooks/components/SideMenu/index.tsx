@@ -40,21 +40,21 @@ const SideMenu:FC = () => {
   )
 
   const onSelect = (e: any) => {
-    const currArticleInfo = articleList.filter(el => el['article_id'] == e.key)[0]
+    const currArticleInfo = articleList.filter(el => el['articleId'] == e.key)[0]
     dispatch(actions.changeCurrArticleInfo(currArticleInfo))
   }
 
   const _renderMenu = () => {
-    const selectedKey = currArticleInfo['article_id'] + ''
+    const selectedKey = currArticleInfo['articleId'] + ''
     return (
       <Menu  className="articles-menu" theme="light" selectedKeys={[selectedKey]} onSelect={onSelect}>
         {
           articleList.map(article => (
-            <Item key={article['article_id']}>
+            <Item key={article['articleId']}>
               <div className="menu-item-cont">
                 <div className="flex-center-center">
                   <WIcon type="article" size={30} color="#999"/>
-                  <span className="title">{article['article_name']}</span>
+                  <span className="title">{article['articleName']}</span>
                 </div>
                 <Popover
                   content={content}

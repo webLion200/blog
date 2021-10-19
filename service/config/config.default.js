@@ -52,6 +52,19 @@ module.exports = appInfo => {
     agent: false,
   }
 
+  config.sequelize = {
+    dialect: 'mysql', // support: mysql, mariadb, postgres, mssql
+    database: 'weblion_blog',
+    host: '127.0.0.1',
+    port: 3306,
+    username: 'root',
+    password: '123456',
+    // delegate: 'myModel', // load all models to `app[delegate]` and `ctx[delegate]`, default to `model`
+    // baseDir: 'my_model', // load all files in `app/${baseDir}` as models, default to `model`
+    // exclude: 'index.js', // ignore `app/${baseDir}/index.js` when load models, support glob and array
+    // more sequelize options
+  };
+
   exports.jwt = {
     secret: "webLion_Blog_123"
   };

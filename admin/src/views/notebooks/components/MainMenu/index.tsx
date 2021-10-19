@@ -57,7 +57,7 @@ const MainMenu:FC = () => {
   )
 
   const onSelect = (e: any) => {
-    const currCataInfo = cataList.filter(el => el['cata_id'] == e.key)[0]
+    const currCataInfo = cataList.filter(el => el['cataId'] == e.key)[0]
     dispatch(actions.changeCurrCataInfo(currCataInfo))
   }
 
@@ -65,13 +65,13 @@ const MainMenu:FC = () => {
     if(!cataList || cataList.length == 0) {
       return null
     }
-    const selectedKey = currCataInfo['cata_id'] + ''
+    const selectedKey = currCataInfo['cataId'] + ''
     return (
       <Menu style={{background: '#404040', color: '#fff', marginTop: '10px'}} selectedKeys={[selectedKey]} onSelect={onSelect}>
         {cataList.map(cata => (
-          <Item key={cata['cata_id']}>
+          <Item key={cata['cataId']}>
             <div className="menu-item-cont">
-              <span>{cata['cata_name']}</span> 
+              <span>{cata['cataName']}</span> 
               <Popover
                 content={content}
                 trigger="click"
