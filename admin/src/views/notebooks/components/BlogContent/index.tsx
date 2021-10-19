@@ -1,5 +1,5 @@
 import { FC, useState, useEffect  } from "react";
-import { Input, Button, Tooltip } from 'antd';
+import { Input, Button, Tooltip, Modal } from 'antd';
 import { useDispatch } from 'react-redux';
 
 import marked from "marked";
@@ -64,24 +64,20 @@ const BlogContent:FC = () => {
       <div className="title-wrap">
         <Input className="input-title" value={currArticleInfo['articleName']} type="text" maxLength={20} onChange={handleChangeTitle} onBlur={handleSave}/>
         <div className="actions-btn">
-        <Tooltip title="保存">
-          <WIcon className="mr10" type="save" color="#096dd9" size={32} style={{cursor: 'pointer'}} onClick={handleSave}/>
-        </Tooltip>
-        <Tooltip title="预览">
-          <WIcon type="preview" color="#999" size={30} onClick={handlePreview} style={{cursor: 'pointer'}}/>
-        </Tooltip>
-
-          <Button type="default" onClick={handlePreview}>
-            {
-              isPreview ? '取消预览' : '预览'
-            }
-          </Button>
+          <Tooltip title="保存">
+            <WIcon className="mr10" type="save" color="#096dd9" size={32} style={{cursor: 'pointer'}} onClick={handleSave}/>
+          </Tooltip>
+          <Tooltip title="预览">
+            <WIcon type="preview" color="#999" size={30} onClick={handlePreview} style={{cursor: 'pointer'}}/>
+          </Tooltip>
         </div>
       </div>
       <div className="markdown-wrap">
         {
           isPreview ? 
-          <div dangerouslySetInnerHTML={{__html: _html}} /> : 
+          <Modal visible={isPreview} onCancel={handlePreview} footer={null} width="1000" style={{ top: 20 }}>
+            <div dangerouslySetInnerHTML={{__html: _html}} />
+          </Modal> : 
           <TextArea placeholder="请输入文章内容" className="textarea" autoSize={{minRows: 20}} bordered={false} value={currArticleInfo.content}  onChange={changeContent}/>
         }
       </div>
