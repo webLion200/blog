@@ -44,6 +44,12 @@ class ArticleController extends Controller {
     const results = await ctx.service.articles.updateArticle()
     ctx.body = results
   }
+
+  async moveArticle() {
+    const { ctx, app } = this;
+    const results = await ctx.service.articles.moveArticle()
+    ctx.body = results
+  }
 }
 
 module.exports = ArticleController;

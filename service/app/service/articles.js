@@ -127,6 +127,26 @@ class ArticlesService extends Service {
     }
 
   }
+
+  async moveArticle() {
+    const { ctx, app } = this
+    const Model = ctx.model
+    const userId = ctx.state.user.userId
+    const { cataId, articleId } = ctx.request.body
+    const result = await Model.Articles.update({
+      cataId: Number(cataId)
+    }, {
+      where: {
+        articleId,
+        userId
+      }
+    })
+
+    return {
+      data: result.rows,
+      status: 200
+    }
+  }
 }
 
 module.exports = ArticlesService

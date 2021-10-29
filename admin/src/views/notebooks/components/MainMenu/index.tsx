@@ -61,6 +61,11 @@ const MainMenu:FC = () => {
     dispatch(actions.changeCurrCataInfo(currCataInfo))
   }
 
+  const handleChangeCata = (e:any) => {
+    const id = e.target.id
+    dispatch(effects.changeCurrCataInfo(id))
+  }
+
   const _renderMenu = () => {
     if(!cataList || cataList.length == 0) {
       return null
@@ -70,7 +75,7 @@ const MainMenu:FC = () => {
       <Menu style={{background: '#404040', color: '#fff', marginTop: '10px'}} selectedKeys={[selectedKey]} onSelect={onSelect}>
         {cataList.map(cata => (
           <Item key={cata['cataId']}>
-            <div className="menu-item-cont">
+            <div className="menu-item-cont" id={cata['cataId']} onClick={handleChangeCata}>
               <span>{cata['cataName']}</span> 
               <Popover
                 content={content}

@@ -25,6 +25,11 @@ interface IUpdateArticleParams {
   articleId: string
 }
 
+interface IMoveArticleParams {
+  cataId: string;
+  articleId: string
+}
+
 
 export const loginApi = (params: ILoginParams) => {
   return Post('/login', params)
@@ -58,4 +63,6 @@ export const updateArticleApi = (params: IUpdateArticleParams) => {
   return Post('/update/article', params)
 }
 
-
+export const moveArticleApi = (params: IMoveArticleParams) => {
+  return Post('/move/article', params)
+}

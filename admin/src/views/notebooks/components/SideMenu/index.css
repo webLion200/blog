@@ -24,3 +24,19 @@
 .articles-menu .ant-menu-item:not(:last-child) {
   margin-bottom: 0;
 }
+
+.move-aritcle-wrap {
+  max-height: 200px;
+  overflow-y: auto;
+}
+.move-aritcle-wrap .move-aritcle-item {
+  padding: 5px 10px;
+  margin-bottom: 0;
+}
+.move-aritcle-item:hover {
+  background: rgb(137, 241, 245);
+  cursor: pointer;
+}
+.move-aritcle-item:not(:last-child) {
+  border-bottom: 1px solid #f0f0f0;
+}
